@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      PeelJoy - Download Icons, 3D Icons, Illustrations & Lottie Animations
+    </title>
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23f582ae'/><stop offset='100%25' style='stop-color:%238bd3dd'/></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23grad)'/><text x='50' y='65' font-size='45' text-anchor='middle' fill='white'>🎨</text></svg>"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23f582ae'/><stop offset='100%25' style='stop-color:%238bd3dd'/></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23grad)'/><text x='50' y='65' font-size='45' text-anchor='middle' fill='white'>🎨</text></svg>"
+    />
+    <meta name="theme-color" content="#f582ae" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <!-- Vercel Analytics -->
+    <script defer src="/_vercel/insights/script.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #fef6e4;
+      }
+
+      .gradient-bg {
+        background: linear-gradient(135deg, #f582ae 0%, #8bd3dd 100%);
+      }
+
+      .asset-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .section-tab.active {
+        background-color: #f582ae;
+        color: white;
+      }
+
+      .search-input:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(245, 130, 174, 0.3);
+      }
+
+      .download-btn {
+        transition: all 0.3s ease;
+      }
+
+      .download-btn:hover {
+        background-color: #f582ae;
+        color: white;
+      }
+
+      .loading-spinner {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #f582ae;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .asset-type-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-size: 0.7rem;
+        font-weight: 600;
+      }
+
+      .badge-icon {
+        background-color: #f582ae;
+        color: white;
+      }
+      .badge-3d {
+        background-color: #8bd3dd;
+        color: white;
+      }
+      .badge-illustration {
+        background-color: #9b59b6;
+        color: white;
+      }
+      .badge-lottie {
+        background-color: #27ae60;
+        color: white;
+      }
+
+      .section-content {
+        display: none;
+      }
+      .section-content.active {
+        display: block;
+      }
+
+      lottie-player {
+        width: 100%;
+        height: 180px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+      <div class="container mx-auto px-4 py-6">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-layer-group text-3xl"></i>
+            <h1 class="text-3xl font-bold">PeelJoy</h1>
+          </div>
+          <nav class="hidden md:flex space-x-6">
+            <a href="#" data-nav="icons" class="hover:text-gray-200 font-medium"
+              >Icons</a
+            >
+            <a
+              href="#"
+              data-nav="3d-icons"
+              class="hover:text-gray-200 font-medium"
+              >3D Icons</a
+            >
+            <a
+              href="#"
+              data-nav="illustrations"
+              class="hover:text-gray-200 font-medium"
+              >Illustrations</a
+            >
+            <a
+              href="#"
+              data-nav="lottie"
+              class="hover:text-gray-200 font-medium"
+              >Lottie</a
+            >
+          </nav>
+          <button class="md:hidden text-2xl">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+
+        <div class="mt-10 mb-16 text-center">
+          <h2 class="text-4xl md:text-5xl font-bold mb-4">
+            Design Assets for Developers
+          </h2>
+          <p class="text-xl mb-8 max-w-2xl mx-auto">
+            Download free icons, 3D icons, illustrations, and Lottie animations
+            for your projects
+          </p>
+
+          <!-- Main Search Bar -->
+          <div class="max-w-2xl mx-auto relative">
+            <input
+              type="text"
+              id="main-search"
+              placeholder="Search icons, illustrations, animations..."
+              class="search-input w-full py-4 px-6 rounded-full text-gray-800 focus:ring-2 focus:ring-pink-300"
+            />
+            <button
+              id="search-btn"
+              class="absolute right-2 top-2 bg-pink-500 text-white p-2 rounded-full hover:bg-pink-600"
+            >
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+
+          <!-- Section Tabs -->
+          <div class="flex flex-wrap justify-center mt-6 gap-2">
+            <button
+              class="section-tab active px-6 py-2 rounded-full bg-white text-pink-600 font-medium"
+              data-section="icons"
+            >
+              <i class="fas fa-icons mr-2"></i>Icons
+            </button>
+            <button
+              class="section-tab px-6 py-2 rounded-full bg-white bg-opacity-20 hover:bg-opacity-30 font-medium"
+              data-section="3d-icons"
+            >
+              <i class="fas fa-cube mr-2"></i>3D Icons
+            </button>
+            <button
+              class="section-tab px-6 py-2 rounded-full bg-white bg-opacity-20 hover:bg-opacity-30 font-medium"
+              data-section="illustrations"
+            >
+              <i class="fas fa-palette mr-2"></i>Illustrations
+            </button>
+            <button
+              class="section-tab px-6 py-2 rounded-full bg-white bg-opacity-20 hover:bg-opacity-30 font-medium"
+              data-section="lottie"
+            >
+              <i class="fas fa-film mr-2"></i>Lottie
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+      <!-- Icons Section -->
+      <section id="icons-section" class="section-content active">
+        <div class="flex justify-between items-center mb-8">
+          <h3 class="text-2xl font-bold text-gray-800">
+            <i class="fas fa-icons text-pink-500 mr-2"></i>Icons
+          </h3>
+          <span class="text-gray-500" id="icons-count">Loading...</span>
+        </div>
+        <div
+          class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4"
+          id="icons-grid"
+        >
+          <div class="col-span-full flex justify-center py-12">
+            <div class="loading-spinner"></div>
+          </div>
+        </div>
+        <div class="mt-8 text-center">
+          <button
+            id="load-more-icons"
+            class="px-8 py-3 bg-pink-500 text-white rounded-full font-medium hover:bg-pink-600 transition-colors hidden"
+          >
+            Load More Icons
+          </button>
+        </div>
+      </section>
+
+      <!-- 3D Icons Section -->
+      <section id="3d-icons-section" class="section-content">
+        <div class="flex justify-between items-center mb-8">
+          <h3 class="text-2xl font-bold text-gray-800">
+            <i class="fas fa-cube text-cyan-500 mr-2"></i>3D Icons
+          </h3>
+          <span class="text-gray-500" id="3d-icons-count">Loading...</span>
+        </div>
+        <div
+          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
+          id="3d-icons-grid"
+        >
+          <div class="col-span-full flex justify-center py-12">
+            <div class="loading-spinner"></div>
+          </div>
+        </div>
+        <div class="mt-8 text-center">
+          <button
+            id="load-more-3d-icons"
+            class="px-8 py-3 bg-cyan-500 text-white rounded-full font-medium hover:bg-cyan-600 transition-colors hidden"
+          >
+            Load More 3D Icons
+          </button>
+        </div>
+      </section>
+
+      <!-- Illustrations Section -->
+      <section id="illustrations-section" class="section-content">
+        <div class="flex justify-between items-center mb-8">
+          <h3 class="text-2xl font-bold text-gray-800">
+            <i class="fas fa-palette text-purple-500 mr-2"></i>Illustrations
+          </h3>
+          <span class="text-gray-500" id="illustrations-count">Loading...</span>
+        </div>
+        <div
+          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
+          id="illustrations-grid"
+        >
+          <div class="col-span-full flex justify-center py-12">
+            <div class="loading-spinner"></div>
+          </div>
+        </div>
+        <div class="mt-8 text-center">
+          <button
+            id="load-more-illustrations"
+            class="px-8 py-3 bg-purple-500 text-white rounded-full font-medium hover:bg-purple-600 transition-colors hidden"
+          >
+            Load More Illustrations
+          </button>
+        </div>
+      </section>
+
+      <!-- Lottie Animations Section -->
+      <section id="lottie-section" class="section-content">
+        <div class="flex justify-between items-center mb-8">
+          <h3 class="text-2xl font-bold text-gray-800">
+            <i class="fas fa-film text-green-500 mr-2"></i>Lottie Animations
+          </h3>
+          <span class="text-gray-500" id="lottie-count">Loading...</span>
+        </div>
+        <div
+          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
+          id="lottie-grid"
+        >
+          <div class="col-span-full flex justify-center py-12">
+            <div class="loading-spinner"></div>
+          </div>
+        </div>
+        <div class="mt-8 text-center">
+          <button
+            id="load-more-lottie"
+            class="px-8 py-3 bg-green-500 text-white rounded-full font-medium hover:bg-green-600 transition-colors hidden"
+          >
+            Load More Animations
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <div class="flex items-center space-x-2 mb-4">
+              <i class="fas fa-layer-group text-2xl"></i>
+              <h4 class="text-xl font-bold">PeelJoy</h4>
+            </div>
+            <p class="text-gray-400">
+              The best place to find and download icons, illustrations, and
+              animations for your projects.
+            </p>
+            <div class="flex space-x-4 mt-4">
+              <a href="#" class="text-gray-400 hover:text-white"
+                ><i class="fab fa-github"></i
+              ></a>
+              <a href="#" class="text-gray-400 hover:text-white"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a href="#" class="text-gray-400 hover:text-white"
+                ><i class="fab fa-discord"></i
+              ></a>
+            </div>
+          </div>
+
+          <div>
+            <h5 class="text-lg font-bold mb-4">Asset Types</h5>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white"
+                  data-nav="icons"
+                  >Icons</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white"
+                  data-nav="3d-icons"
+                  >3D Icons</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white"
+                  data-nav="illustrations"
+                  >Illustrations</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white"
+                  data-nav="lottie"
+                  >Lottie Animations</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h5 class="text-lg font-bold mb-4">Resources</h5>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white"
+                  >API Documentation</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white"
+                  >Terms of Service</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400"
+        >
+          <p>&copy; 2025 PeelJoy. Powered by IconScout API.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Asset Modal -->
+    <div
+      id="asset-modal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <div class="bg-white rounded-lg max-w-2xl w-full mx-4 overflow-hidden">
+        <div class="flex flex-col md:flex-row">
+          <div
+            class="md:w-1/2 p-6 flex items-center justify-center bg-gray-100"
+            id="modal-preview"
+          >
+            <img id="modal-image" src="" alt="Asset" class="max-h-64 w-auto" />
+          </div>
+          <div class="md:w-1/2 p-6">
+            <div class="flex justify-between items-start mb-4">
+              <h3 id="modal-title" class="text-xl font-bold text-gray-800"></h3>
+              <button
+                id="close-modal"
+                class="text-gray-500 hover:text-gray-700"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="mb-4">
+              <span
+                id="modal-type-badge"
+                class="px-3 py-1 rounded-full text-sm font-medium"
+              ></span>
+            </div>
+            <p id="modal-description" class="text-gray-600 mb-6"></p>
+            <div class="flex space-x-3">
+              <button
+                id="modal-download"
+                class="flex-grow bg-pink-500 text-white py-3 px-6 rounded-lg hover:bg-pink-600 transition-colors text-center"
+              >
+                <i class="fas fa-download mr-2"></i> Download
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // API Configuration
+      const API_BASE_URL = "/api";
+
+      // State management
+      const state = {
+        icons: { page: 1, query: "", data: [] },
+        "3d-icons": { page: 1, query: "", data: [] },
+        illustrations: { page: 1, query: "", data: [] },
+        lottie: { page: 1, query: "", data: [] },
+        currentSection: "icons",
+      };
+
+      // DOM elements
+      const mainSearch = document.getElementById("main-search");
+      const searchBtn = document.getElementById("search-btn");
+      const sectionTabs = document.querySelectorAll(".section-tab");
+      const modal = document.getElementById("asset-modal");
+      const closeModalBtn = document.getElementById("close-modal");
+
+      // Fetch assets from API
+      async function fetchAssets(type, query = "", page = 1) {
+        const endpoints = {
+          icons: "/icons",
+          "3d-icons": "/3d-icons",
+          illustrations: "/illustrations",
+          lottie: "/lottie",
+        };
+
+        try {
+          const response = await axios.get(
+            `${API_BASE_URL}${endpoints[type]}`,
+            {
+              params: { q: query || "popular", page, per_page: 20 },
+            }
+          );
+          return response.data;
+        } catch (error) {
+          console.error(`Error fetching ${type}:`, error);
+          return { success: false, data: [], error: error.message };
+        }
+      }
+
+      // Create asset card
+      function createAssetCard(asset, type) {
+        const card = document.createElement("div");
+        card.className =
+          "asset-card bg-white rounded-xl overflow-hidden shadow-md transition-transform duration-300 cursor-pointer";
+
+        const badgeClass = {
+          icons: "badge-icon",
+          "3d-icons": "badge-3d",
+          illustrations: "badge-illustration",
+          lottie: "badge-lottie",
+        }[type];
+
+        const badgeText = {
+          icons: "Icon",
+          "3d-icons": "3D",
+          illustrations: "Illustration",
+          lottie: "Lottie",
+        }[type];
+
+        // Get the preview URL
+        const previewUrl =
+          asset.urls?.png_128 ||
+          asset.urls?.png_64 ||
+          asset.urls?.thumb ||
+          asset.preview ||
+          asset.urls?.png ||
+          "https://placehold.co/128x128/f582ae/ffffff?text=No+Preview";
+
+        if (type === "lottie") {
+          // IconScout API returns MP4 video preview for Lottie assets (thumb URL)
+          // The actual Lottie JSON is not available in the free API
+          const videoPreview = asset.urls?.thumb;
+
+          card.innerHTML = `
+            <div class="relative p-4 bg-gray-50 flex items-center justify-center" style="height: 180px;">
+              <video src="${videoPreview}" autoplay loop muted playsinline
+                     class="max-h-full max-w-full object-contain"
+                     onerror="this.parentElement.innerHTML='<div class=\\'text-gray-400 text-center\\'><i class=\\'fas fa-film text-4xl mb-2\\'></i><br>Preview unavailable</div>'">
+              </video>
+              <span class="asset-type-badge ${badgeClass}">${badgeText}</span>
+            </div>
+            <div class="p-3">
+              <h4 class="font-medium text-gray-800 text-sm truncate">${
+                asset.name || "Untitled"
+              }</h4>
+              <div class="flex items-center text-xs text-gray-500 mt-1">
+                <i class="fas fa-download mr-1"></i>
+                <span class="download-count" data-asset-id="${
+                  asset.uuid || asset.id
+                }">0</span> downloads
+              </div>
+            </div>
+          `;
+        } else {
+          card.innerHTML = `
+            <div class="relative p-4 bg-gray-50 flex items-center justify-center" style="height: ${
+              type === "icons" ? "120px" : "180px"
+            };">
+              <img src="${previewUrl}" alt="${asset.name || "Asset"}"
+                   class="max-h-full max-w-full object-contain"
+                   onerror="this.src='https://placehold.co/128x128/f582ae/ffffff?text=No+Preview'">
+              <span class="asset-type-badge ${badgeClass}">${badgeText}</span>
+            </div>
+            <div class="p-3">
+              <h4 class="font-medium text-gray-800 text-sm truncate">${
+                asset.name || "Untitled"
+              }</h4>
+              <div class="flex items-center text-xs text-gray-500 mt-1">
+                <i class="fas fa-download mr-1"></i>
+                <span class="download-count" data-asset-id="${
+                  asset.uuid || asset.id
+                }">0</span> downloads
+              </div>
+            </div>
+          `;
+        }
+
+        // Load download count for this asset
+        loadDownloadCount(asset.uuid || asset.id);
+
+        card.addEventListener("click", () => openModal(asset, type));
+        return card;
+      }
+
+      // Render assets to grid
+      function renderAssets(type, assets, append = false) {
+        const gridId = `${type}-grid`;
+        const countId = `${type}-count`;
+        const loadMoreId = `load-more-${type}`;
+
+        const grid = document.getElementById(gridId);
+        const countEl = document.getElementById(countId);
+        const loadMoreBtn = document.getElementById(loadMoreId);
+
+        if (!append) {
+          grid.innerHTML = "";
+        }
+
+        if (assets.length === 0 && !append) {
+          grid.innerHTML =
+            '<div class="col-span-full text-center py-12 text-gray-500">No assets found. Try a different search term.</div>';
+          countEl.textContent = "0 results";
+          loadMoreBtn.classList.add("hidden");
+          return;
+        }
+
+        assets.forEach((asset) => {
+          const card = createAssetCard(asset, type);
+          grid.appendChild(card);
+        });
+
+        const totalShown = grid.querySelectorAll(".asset-card").length;
+        countEl.textContent = `${totalShown} shown`;
+        loadMoreBtn.classList.toggle("hidden", assets.length < 20);
+      }
+
+      // Open modal
+      function openModal(asset, type) {
+        const modalTitle = document.getElementById("modal-title");
+        const modalImage = document.getElementById("modal-image");
+        const modalPreview = document.getElementById("modal-preview");
+        const modalDescription = document.getElementById("modal-description");
+        const modalTypeBadge = document.getElementById("modal-type-badge");
+        const modalDownload = document.getElementById("modal-download");
+
+        modalTitle.textContent = asset.name || "Untitled Asset";
+
+        const previewUrl =
+          asset.urls?.png_256 ||
+          asset.urls?.png_128 ||
+          asset.urls?.png_64 ||
+          asset.urls?.thumb ||
+          asset.preview ||
+          "https://placehold.co/256x256/f582ae/ffffff?text=No+Preview";
+
+        // For Lottie, show video preview since JSON is not available in free API
+        if (type === "lottie") {
+          const videoPreview = asset.urls?.thumb;
+          modalPreview.innerHTML = `<video src="${videoPreview}" autoplay loop muted playsinline style="width: 200px; height: 200px; object-fit: contain;"></video>`;
+        } else {
+          modalPreview.innerHTML = `<img id="modal-image" src="${previewUrl}" alt="${asset.name}" class="max-h-64 w-auto" />`;
+        }
+
+        const badgeColors = {
+          icons: "bg-pink-500 text-white",
+          "3d-icons": "bg-cyan-500 text-white",
+          illustrations: "bg-purple-500 text-white",
+          lottie: "bg-green-500 text-white",
+        };
+
+        const typeLabels = {
+          icons: "Icon",
+          "3d-icons": "3D Icon",
+          illustrations: "Illustration",
+          lottie: "Lottie Animation",
+        };
+
+        modalTypeBadge.className = `px-3 py-1 rounded-full text-sm font-medium ${badgeColors[type]}`;
+        modalTypeBadge.textContent = typeLabels[type];
+
+        modalDescription.textContent = `A beautiful ${typeLabels[
+          type
+        ].toLowerCase()} from IconScout. Click below to download.`;
+
+        // Get the best download URL
+        const downloadUrl =
+          asset.urls?.png_256 ||
+          asset.urls?.png_128 ||
+          asset.urls?.png_64 ||
+          asset.urls?.png ||
+          asset.urls?.svg ||
+          asset.urls?.thumb ||
+          previewUrl;
+
+        // Get asset ID for tracking
+        const assetId = asset.uuid || asset.id;
+
+        // Set up download button click handler
+        modalDownload.onclick = () =>
+          downloadAsset(downloadUrl, asset.name || "asset", type, assetId);
+
+        modal.classList.remove("hidden");
+      }
+
+      // Download asset function
+      async function downloadAsset(url, name, type, assetId) {
+        try {
+          // Determine file extension based on type and URL
+          let extension = "png";
+          if (type === "lottie" || url.includes(".mp4")) {
+            // IconScout provides MP4 video previews for Lottie assets
+            extension = "mp4";
+          } else if (url.includes(".json")) {
+            extension = "json";
+          } else if (url.includes(".svg")) {
+            extension = "svg";
+          } else if (url.includes(".gif")) {
+            extension = "gif";
+          }
+
+          // Fetch the asset
+          const response = await fetch(url);
+          const blob = await response.blob();
+
+          // Create download link
+          const downloadUrl = window.URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = downloadUrl;
+          link.download = `${name.replace(/[^a-z0-9]/gi, "_")}.${extension}`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(downloadUrl);
+
+          // Track download
+          if (assetId) {
+            await trackDownload(assetId);
+          }
+        } catch (error) {
+          console.error("Download failed:", error);
+          // Fallback: open in new tab
+          window.open(url, "_blank");
+        }
+      }
+
+      // Track download and update UI
+      async function trackDownload(assetId) {
+        try {
+          const response = await axios.post(
+            `${API_BASE_URL}/downloads/${assetId}`
+          );
+          if (response.data.success) {
+            // Update all instances of this asset's download count on the page
+            document
+              .querySelectorAll(`[data-asset-id="${assetId}"]`)
+              .forEach((el) => {
+                el.textContent = response.data.downloads;
+              });
+          }
+        } catch (error) {
+          console.error("Failed to track download:", error);
+        }
+      }
+
+      // Load download count for an asset
+      async function loadDownloadCount(assetId) {
+        try {
+          const response = await axios.get(
+            `${API_BASE_URL}/downloads/${assetId}`
+          );
+          if (response.data.success) {
+            document
+              .querySelectorAll(`[data-asset-id="${assetId}"]`)
+              .forEach((el) => {
+                el.textContent = response.data.downloads;
+              });
+          }
+        } catch (error) {
+          // Silently fail - just show 0
+        }
+      }
+
+      // Close modal
+      function closeModal() {
+        modal.classList.add("hidden");
+      }
+
+      // Switch section
+      function switchSection(section) {
+        state.currentSection = section;
+
+        // Update tabs
+        sectionTabs.forEach((tab) => {
+          if (tab.dataset.section === section) {
+            tab.classList.add("active");
+            tab.classList.remove("bg-opacity-20");
+          } else {
+            tab.classList.remove("active");
+            tab.classList.add("bg-opacity-20");
+          }
+        });
+
+        // Update content sections
+        document.querySelectorAll(".section-content").forEach((content) => {
+          content.classList.remove("active");
+        });
+        document.getElementById(`${section}-section`).classList.add("active");
+
+        // Load assets if not already loaded
+        if (state[section].data.length === 0) {
+          loadAssets(section);
+        }
+      }
+
+      // Load assets
+      async function loadAssets(type, append = false) {
+        const grid = document.getElementById(`${type}-grid`);
+
+        if (!append) {
+          grid.innerHTML =
+            '<div class="col-span-full flex justify-center py-12"><div class="loading-spinner"></div></div>';
+        }
+
+        const result = await fetchAssets(
+          type,
+          state[type].query,
+          state[type].page
+        );
+
+        if (result.success) {
+          state[type].data = append
+            ? [...state[type].data, ...result.data]
+            : result.data;
+          renderAssets(type, result.data, append);
+        } else {
+          grid.innerHTML = `<div class="col-span-full text-center py-12 text-red-500">Error loading ${type}: ${
+            result.error || "Unknown error"
+          }</div>`;
+        }
+      }
+
+      // Search handler
+      function handleSearch() {
+        const query = mainSearch.value.trim();
+        const type = state.currentSection;
+
+        state[type].query = query;
+        state[type].page = 1;
+        state[type].data = [];
+
+        loadAssets(type);
+      }
+
+      // Event listeners
+      sectionTabs.forEach((tab) => {
+        tab.addEventListener("click", () => switchSection(tab.dataset.section));
+      });
+
+      searchBtn.addEventListener("click", handleSearch);
+      mainSearch.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") handleSearch();
+      });
+
+      closeModalBtn.addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      // Load more buttons
+      ["icons", "3d-icons", "illustrations", "lottie"].forEach((type) => {
+        const btn = document.getElementById(`load-more-${type}`);
+        btn.addEventListener("click", () => {
+          state[type].page++;
+          loadAssets(type, true);
+        });
+      });
+
+      // Footer navigation
+      document.querySelectorAll("[data-nav]").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          switchSection(link.dataset.nav);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
+
+      // Initial load
+      document.addEventListener("DOMContentLoaded", () => {
+        loadAssets("icons");
+      });
+    </script>
+  </body>
+</html>
