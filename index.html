@@ -776,8 +776,13 @@
       }
 
       // Switch section
-      function switchSection(section) {
+      function switchSection(section, updateHash = true) {
         state.currentSection = section;
+
+        // Update URL hash so page refresh remembers the section
+        if (updateHash) {
+          window.location.hash = section;
+        }
 
         // Update tabs
         sectionTabs.forEach((tab) => {
@@ -874,9 +879,21 @@
         });
       });
 
-      // Initial load
+      // Handle browser back/forward buttons
+      window.addEventListener("hashchange", () => {
+        const hash = window.location.hash.slice(1);
+        const validSections = ["icons", "3d-icons", "illustrations", "lottie"];
+        if (validSections.includes(hash)) {
+          switchSection(hash, false);
+        }
+      });
+
+      // Initial load - check URL hash for section
       document.addEventListener("DOMContentLoaded", () => {
-        loadAssets("icons");
+        const hash = window.location.hash.slice(1);
+        const validSections = ["icons", "3d-icons", "illustrations", "lottie"];
+        const initialSection = validSections.includes(hash) ? hash : "icons";
+        switchSection(initialSection, false);
       });
     </script>
   </body>
