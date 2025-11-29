@@ -1,4 +1,10 @@
-require('dotenv').config();
+// Load environment variables (silent fail on Vercel)
+try {
+  require('dotenv').config();
+} catch (e) {
+  // dotenv not needed on Vercel, env vars are injected
+}
+
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
