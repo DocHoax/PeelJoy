@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-CP5V1VKX04"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-CP5V1VKX04");
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leave a Review - PeelJoy</title>
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Share your feedback about PeelJoy. We'd love to hear your thoughts on our free icons, 3D icons, illustrations, and Lottie animations platform."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://peeljoy.vercel.app/review.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://peeljoy.vercel.app/review.html" />
+    <meta property="og:title" content="Leave a Review - PeelJoy" />
+    <meta
+      property="og:description"
+      content="Share your feedback about PeelJoy's design assets platform."
+    />
+    <meta property="og:site_name" content="PeelJoy" />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23f582ae'/><stop offset='100%25' style='stop-color:%238bd3dd'/></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23grad)'/><text x='50' y='65' font-size='45' text-anchor='middle' fill='white'>🎨</text></svg>"
+    />
+    <meta name="theme-color" content="#f582ae" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google AdSense -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6372549792429788"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #fef6e4;
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #f582ae 0%, #8bd3dd 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .star-rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        gap: 0.5rem;
+      }
+
+      .star-rating input {
+        display: none;
+      }
+
+      .star-rating label {
+        cursor: pointer;
+        font-size: 2rem;
+        color: #ddd;
+        transition: color 0.2s;
+      }
+
+      .star-rating label:hover,
+      .star-rating label:hover ~ label,
+      .star-rating input:checked ~ label {
+        color: #ffc107;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #f582ae 0%, #8bd3dd 100%);
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(245, 130, 174, 0.3);
+      }
+
+      .review-card {
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+      <div class="max-w-7xl mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+          <a href="/" class="flex items-center space-x-3">
+            <div
+              class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-cyan-400 flex items-center justify-center"
+            >
+              <span class="text-white text-xl">🎨</span>
+            </div>
+            <h1 class="text-2xl font-bold gradient-text">PeelJoy</h1>
+          </a>
+          <nav class="flex items-center space-x-6">
+            <a
+              href="/"
+              class="text-gray-600 hover:text-pink-500 transition-colors"
+            >
+              <i class="fas fa-home mr-1"></i> Home
+            </a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-3xl mx-auto px-4 py-12">
+      <div class="text-center mb-10">
+        <h1 class="text-4xl font-bold gradient-text mb-4">
+          We'd Love Your Feedback!
+        </h1>
+        <p class="text-gray-600 text-lg">
+          Help us improve PeelJoy by sharing your experience
+        </p>
+      </div>
+
+      <!-- Review Form -->
+      <div class="review-card p-8">
+        <form
+          id="reviewForm"
+          action="https://formsubmit.co/sonofadam612@gmail.com"
+          method="POST"
+        >
+          <!-- FormSubmit Configuration -->
+          <input type="hidden" name="_subject" value="New PeelJoy Review!" />
+          <input type="hidden" name="_captcha" value="true" />
+          <input type="hidden" name="_template" value="table" />
+          <input
+            type="hidden"
+            name="_next"
+            value="https://peeljoy.vercel.app/review.html?success=true"
+          />
+          <input type="text" name="_honey" style="display: none" />
+
+          <!-- Name -->
+          <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2" for="name">
+              <i class="fas fa-user mr-2 text-pink-400"></i>Your Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all"
+              placeholder="Enter your name"
+            />
+          </div>
+
+          <!-- Email -->
+          <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2" for="email">
+              <i class="fas fa-envelope mr-2 text-pink-400"></i>Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all"
+              placeholder="your@email.com"
+            />
+          </div>
+
+          <!-- Rating -->
+          <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2">
+              <i class="fas fa-star mr-2 text-pink-400"></i>Your Rating
+            </label>
+            <div class="star-rating">
+              <input type="radio" id="star5" name="rating" value="5" required />
+              <label for="star5" title="5 stars"
+                ><i class="fas fa-star"></i
+              ></label>
+              <input type="radio" id="star4" name="rating" value="4" />
+              <label for="star4" title="4 stars"
+                ><i class="fas fa-star"></i
+              ></label>
+              <input type="radio" id="star3" name="rating" value="3" />
+              <label for="star3" title="3 stars"
+                ><i class="fas fa-star"></i
+              ></label>
+              <input type="radio" id="star2" name="rating" value="2" />
+              <label for="star2" title="2 stars"
+                ><i class="fas fa-star"></i
+              ></label>
+              <input type="radio" id="star1" name="rating" value="1" />
+              <label for="star1" title="1 star"
+                ><i class="fas fa-star"></i
+              ></label>
+            </div>
+          </div>
+
+          <!-- Review Category -->
+          <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2" for="category">
+              <i class="fas fa-folder mr-2 text-pink-400"></i>What are you
+              reviewing?
+            </label>
+            <select
+              id="category"
+              name="category"
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all"
+            >
+              <option value="">Select a category</option>
+              <option value="Overall Experience">Overall Experience</option>
+              <option value="Icons">Icons</option>
+              <option value="3D Icons">3D Icons</option>
+              <option value="Illustrations">Illustrations</option>
+              <option value="Lottie Animations">Lottie Animations</option>
+              <option value="Website Design">Website Design</option>
+              <option value="Download Speed">Download Speed</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <!-- Review Text -->
+          <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2" for="review">
+              <i class="fas fa-comment mr-2 text-pink-400"></i>Your Review
+            </label>
+            <textarea
+              id="review"
+              name="review"
+              required
+              rows="5"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all resize-none"
+              placeholder="Tell us about your experience with PeelJoy..."
+            ></textarea>
+          </div>
+
+          <!-- Suggestions -->
+          <div class="mb-8">
+            <label
+              class="block text-gray-700 font-medium mb-2"
+              for="suggestions"
+            >
+              <i class="fas fa-lightbulb mr-2 text-pink-400"></i>Any
+              Suggestions? (Optional)
+            </label>
+            <textarea
+              id="suggestions"
+              name="suggestions"
+              rows="3"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all resize-none"
+              placeholder="How can we make PeelJoy better?"
+            ></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            class="w-full btn-primary text-white font-semibold py-4 px-6 rounded-lg text-lg"
+          >
+            <i class="fas fa-paper-plane mr-2"></i>Submit Review
+          </button>
+        </form>
+      </div>
+
+      <!-- Success Message (shown after submission) -->
+      <div id="successMessage" class="hidden review-card p-8 text-center mt-8">
+        <div class="text-6xl mb-4">🎉</div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">Thank You!</h2>
+        <p class="text-gray-600 mb-6">
+          Your review has been submitted successfully. We really appreciate your
+          feedback!
+        </p>
+        <a
+          href="/"
+          class="inline-block btn-primary text-white font-semibold py-3 px-8 rounded-lg"
+        >
+          <i class="fas fa-home mr-2"></i>Back to Home
+        </a>
+      </div>
+
+      <!-- Why Review Section -->
+      <div class="mt-12 text-center">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">
+          Why Your Review Matters
+        </h3>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-white p-6 rounded-xl shadow-sm">
+            <div class="text-3xl mb-3">💡</div>
+            <h4 class="font-medium text-gray-800 mb-2">Improve Features</h4>
+            <p class="text-gray-600 text-sm">
+              Your feedback helps us add features you actually need
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-sm">
+            <div class="text-3xl mb-3">🐛</div>
+            <h4 class="font-medium text-gray-800 mb-2">Fix Issues</h4>
+            <p class="text-gray-600 text-sm">
+              Report bugs or problems so we can fix them quickly
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-sm">
+            <div class="text-3xl mb-3">❤️</div>
+            <h4 class="font-medium text-gray-800 mb-2">Show Support</h4>
+            <p class="text-gray-600 text-sm">
+              Positive reviews motivate us to keep improving
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <p class="text-gray-400">
+          &copy; 2025 PeelJoy. All rights reserved. |
+          <a href="/privacy.html" class="hover:text-pink-400 transition-colors"
+            >Privacy Policy</a
+          >
+          |
+          <a href="/terms.html" class="hover:text-pink-400 transition-colors"
+            >Terms of Service</a
+          >
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Check for success parameter in URL
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("success") === "true") {
+        document.getElementById("reviewForm").parentElement.style.display =
+          "none";
+        document.getElementById("successMessage").classList.remove("hidden");
+        // Clean up URL
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname
+        );
+      }
+    </script>
+  </body>
+</html>

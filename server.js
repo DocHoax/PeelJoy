@@ -259,6 +259,10 @@ app.get('/terms.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'terms.html'));
 });
 
+app.get('/review.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'review.html'));
+});
+
 // Default route - serve index.html for all other routes
 // Express 5 requires named wildcards, not bare *
 app.get('/{*splat}', (req, res) => {
