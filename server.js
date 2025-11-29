@@ -260,7 +260,8 @@ app.get('/terms.html', (req, res) => {
 });
 
 // Default route - serve index.html for all other routes
-app.get('*', (req, res) => {
+// Express 5 requires named wildcards, not bare *
+app.get('/{*splat}', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
