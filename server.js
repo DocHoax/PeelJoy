@@ -42,11 +42,15 @@ function saveDownloadCounts() {
 }
 
 // Debug: Log the Client ID (first 10 chars only for security)
-console.log('Client ID loaded:', CLIENT_ID ? `${CLIENT_ID.substring(0, 10)}...` : 'NOT FOUND');
+console.log('Client ID loaded:', CLIENT_ID ? `${CLIENT_ID.substring(0, 10)}...` : 'NOT FOUND - Check environment variables!');
 
 // Helper function to make IconScout API requests
 async function fetchFromIconScout(endpoint, params = {}) {
   try {
+    if (!CLIENT_ID) {
+      throw new Error('ICONSCOUT_CLIENT_ID environment variable is not set');
+    }
+    
     console.log(`Fetching: ${ICONSCOUT_API_BASE}${endpoint}`, { params });
     
     // Try multiple header formats
