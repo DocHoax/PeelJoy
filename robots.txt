@@ -1,0 +1,9 @@
+# PeelJoy Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://peeljoy.vercel.app/sitemap.xml
+
+# Disallow API endpoints from being indexed
+Disallow: /api/
