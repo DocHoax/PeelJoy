@@ -223,10 +223,43 @@
               >Lottie</a
             >
           </nav>
-          <button class="md:hidden text-2xl">
+          <button id="mobile-menu-btn" class="md:hidden text-2xl">
             <i class="fas fa-bars"></i>
           </button>
         </div>
+
+        <!-- Mobile Menu -->
+        <nav id="mobile-menu" class="hidden md:hidden pb-4">
+          <div class="flex flex-col space-y-3">
+            <a
+              href="#"
+              data-nav="icons"
+              class="hover:text-gray-200 font-medium py-2 border-b border-white/20"
+              ><i class="fas fa-icons mr-2"></i>Icons</a
+            >
+            <a
+              href="#"
+              data-nav="3d-icons"
+              class="hover:text-gray-200 font-medium py-2 border-b border-white/20"
+              ><i class="fas fa-cube mr-2"></i>3D Icons</a
+            >
+            <a
+              href="#"
+              data-nav="illustrations"
+              class="hover:text-gray-200 font-medium py-2 border-b border-white/20"
+              ><i class="fas fa-palette mr-2"></i>Illustrations</a
+            >
+            <a
+              href="#"
+              data-nav="lottie"
+              class="hover:text-gray-200 font-medium py-2 border-b border-white/20"
+              ><i class="fas fa-film mr-2"></i>Lottie</a
+            >
+            <a href="/review.html" class="hover:text-gray-200 font-medium py-2"
+              ><i class="fas fa-star mr-2"></i>Leave a Review</a
+            >
+          </div>
+        </nav>
 
         <div class="mt-10 mb-16 text-center">
           <h2 class="text-4xl md:text-5xl font-bold mb-4">
@@ -975,6 +1008,32 @@
           e.preventDefault();
           switchSection(link.dataset.nav);
           window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
+
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+        const icon = mobileMenuBtn.querySelector("i");
+        if (mobileMenu.classList.contains("hidden")) {
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        } else {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-times");
+        }
+      });
+
+      // Close mobile menu when a nav link is clicked
+      mobileMenu.querySelectorAll("a[data-nav]").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+          const icon = mobileMenuBtn.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
         });
       });
 
