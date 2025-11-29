@@ -240,8 +240,17 @@ app.post('/api/downloads/:assetId', (req, res) => {
 // Serve static files
 app.use(express.static(path.join(__dirname)));
 
-// Default route
-app.use((req, res) => {
+// Specific routes for HTML pages
+app.get('/privacy.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'privacy.html'));
+});
+
+app.get('/terms.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'terms.html'));
+});
+
+// Default route - serve index.html for all other routes
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
