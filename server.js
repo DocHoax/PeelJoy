@@ -263,6 +263,24 @@ app.get('/review.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'review.html'));
 });
 
+// ads.txt for Google AdSense
+app.get('/ads.txt', (req, res) => {
+  res.type('text/plain');
+  res.sendFile(path.join(__dirname, 'ads.txt'));
+});
+
+// robots.txt for SEO
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  res.sendFile(path.join(__dirname, 'robots.txt'));
+});
+
+// sitemap.xml for SEO
+app.get('/sitemap.xml', (req, res) => {
+  res.type('application/xml');
+  res.sendFile(path.join(__dirname, 'sitemap.xml'));
+});
+
 // Default route - serve index.html for all other routes
 // Express 5 requires named wildcards, not bare *
 app.get('/{*splat}', (req, res) => {
