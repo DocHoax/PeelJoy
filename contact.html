@@ -127,9 +127,116 @@
           Contact Us
         </h1>
         <p class="text-gray-600 text-center mb-8">
-          We'd love to hear from you! Get in touch with us using any of the
-          methods below.
+          We'd love to hear from you! Fill out the form below or use our contact information.
         </p>
+
+        <!-- Success Message (hidden by default) -->
+        <div id="successMessage" class="hidden mb-8 bg-green-100 border border-green-400 text-green-700 px-6 py-4 rounded-xl text-center">
+          <i class="fas fa-check-circle text-2xl mb-2"></i>
+          <h3 class="font-semibold text-lg">Thank you for your message!</h3>
+          <p>We'll get back to you within 24-48 hours.</p>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-gradient-to-br from-pink-50 to-cyan-50 rounded-xl p-6 mb-8">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+            <i class="fas fa-paper-plane text-pink-500 mr-3"></i>
+            Send Us a Message
+          </h2>
+          <form
+            id="contactForm"
+            action="https://formsubmit.co/sonofadam612@gmail.com"
+            method="POST"
+          >
+            <!-- FormSubmit Configuration -->
+            <input type="hidden" name="_subject" value="New Contact Form Message - PeelJoy" />
+            <input type="hidden" name="_captcha" value="true" />
+            <input type="hidden" name="_template" value="table" />
+            <input
+              type="hidden"
+              name="_next"
+              value="https://peeljoy.vercel.app/contact.html?success=true"
+            />
+            <input type="text" name="_honey" style="display: none" />
+
+            <div class="grid md:grid-cols-2 gap-4 mb-4">
+              <!-- Name -->
+              <div>
+                <label class="block text-gray-700 font-medium mb-2" for="name">
+                  <i class="fas fa-user mr-2 text-pink-400"></i>Your Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all"
+                  placeholder="Enter your name"
+                />
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label class="block text-gray-700 font-medium mb-2" for="email">
+                  <i class="fas fa-envelope mr-2 text-pink-400"></i>Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all"
+                  placeholder="your@email.com"
+                />
+              </div>
+            </div>
+
+            <!-- Subject -->
+            <div class="mb-4">
+              <label class="block text-gray-700 font-medium mb-2" for="subject">
+                <i class="fas fa-tag mr-2 text-pink-400"></i>Subject
+              </label>
+              <select
+                id="subject"
+                name="subject"
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all"
+              >
+                <option value="">Select a subject</option>
+                <option value="General Inquiry">General Inquiry</option>
+                <option value="Asset Request">Asset Request</option>
+                <option value="Bug Report">Bug Report</option>
+                <option value="Feedback">Feedback</option>
+                <option value="Business/Partnership">Business/Partnership</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <!-- Message -->
+            <div class="mb-6">
+              <label class="block text-gray-700 font-medium mb-2" for="message">
+                <i class="fas fa-comment mr-2 text-pink-400"></i>Your Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows="5"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all resize-none"
+                placeholder="Write your message here..."
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="w-full gradient-bg text-white font-semibold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center"
+            >
+              <i class="fas fa-paper-plane mr-2"></i>
+              Send Message
+            </button>
+          </form>
+        </div>
 
         <!-- Contact Cards -->
         <div class="grid md:grid-cols-2 gap-6 mb-12">
@@ -297,5 +404,19 @@
         <p class="text-gray-400">&copy; 2025 PeelJoy. All rights reserved.</p>
       </div>
     </footer>
+
+    <script>
+      // Check for success parameter in URL
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("success") === "true") {
+        document.getElementById("contactForm").style.display = "none";
+        document.getElementById("contactForm").parentElement.style.display = "none";
+        document.getElementById("successMessage").classList.remove("hidden");
+        // Clean up URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    </script>
   </body>
 </html>
