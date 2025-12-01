@@ -267,6 +267,10 @@ app.get('/contact.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'contact.html'));
 });
 
+app.get('/about.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'about.html'));
+});
+
 // ads.txt for Google AdSense
 app.get('/ads.txt', (req, res) => {
   res.type('text/plain');
