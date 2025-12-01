@@ -263,6 +263,10 @@ app.get('/review.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'review.html'));
 });
 
+app.get('/contact.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'contact.html'));
+});
+
 // ads.txt for Google AdSense
 app.get('/ads.txt', (req, res) => {
   res.type('text/plain');
