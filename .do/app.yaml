@@ -1,0 +1,22 @@
+name: peeljoy
+region: nyc
+services:
+  - name: web
+    github:
+      repo: DocHoax/PeelJoy
+      branch: main
+      deploy_on_push: true
+    build_command: npm install
+    run_command: npm start
+    environment_slug: node-js
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    http_port: 3000
+    routes:
+      - path: /
+    envs:
+      - key: NODE_ENV
+        value: production
+      - key: ICONSCOUT_CLIENT_ID
+        scope: RUN_TIME
+        type: SECRET
