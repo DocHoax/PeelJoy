@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://peeljoy.vercel.app/sitemap.xml
+Sitemap: https://peeljoy.tech/sitemap.xml
 
 # Disallow API endpoints from being indexed
 Disallow: /api/
