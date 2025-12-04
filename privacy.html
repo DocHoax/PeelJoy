@@ -99,7 +99,7 @@
     <main class="container mx-auto px-4 py-12 max-w-4xl">
       <div class="bg-white rounded-xl shadow-lg p-8">
         <h1 class="text-3xl font-bold text-gray-800 mb-6">Privacy Policy</h1>
-        <p class="text-gray-500 mb-8">Last updated: November 28, 2025</p>
+        <p class="text-gray-500 mb-8">Last updated: December 4, 2025</p>
 
         <div class="space-y-8 text-gray-700">
           <section>
@@ -212,9 +212,39 @@
             </p>
             <ul class="list-disc pl-6 space-y-2">
               <li>
-                <strong>Google AdSense:</strong> For displaying advertisements
+                <strong>Google Analytics:</strong> We use Google Analytics to
+                understand how visitors interact with our website. Google
+                Analytics collects information such as how often users visit the
+                site, what pages they visit, and what other sites they used
+                prior to coming to our site. We use this information to improve
+                our website. Google Analytics collects only the IP address
+                assigned to you on the date you visit our site, rather than your
+                name or other identifying information. You can opt out of Google
+                Analytics by installing the
+                <a
+                  href="https://tools.google.com/dlpage/gaoptout"
+                  class="text-pink-500 hover:underline"
+                  target="_blank"
+                  >Google Analytics Opt-out Browser Add-on</a
+                >.
               </li>
-              <li><strong>Vercel Analytics:</strong> For website analytics</li>
+              <li>
+                <strong>Google Ads:</strong> We use Google Ads to display
+                personalized advertisements. Google Ads uses cookies to serve
+                ads based on your prior visits to our website or other websites.
+                You may opt out of personalized advertising by visiting
+                <a
+                  href="https://adssettings.google.com"
+                  class="text-pink-500 hover:underline"
+                  target="_blank"
+                  >Google Ads Settings</a
+                >.
+              </li>
+              <li>
+                <strong>Adsterra:</strong> We use Adsterra advertising network
+                to display ads on our website. Adsterra may use cookies and
+                similar technologies to serve relevant advertisements.
+              </li>
               <li>
                 <strong>IconScout API:</strong> For providing design assets
               </li>
@@ -320,5 +350,57 @@
         <p class="text-gray-400">&copy; 2025 PeelJoy. All rights reserved.</p>
       </div>
     </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div
+      id="cookieConsent"
+      class="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 z-50 transform translate-y-full transition-transform duration-300"
+      style="display: none"
+    >
+      <div
+        class="container mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4"
+      >
+        <div class="flex-1 text-sm">
+          <p>
+            🍪 We use cookies to enhance your experience, analyze site traffic,
+            and serve personalized ads. By clicking "Accept All", you consent to
+            our use of cookies.
+            <a href="/privacy.html" class="text-pink-400 hover:underline"
+              >Learn more</a
+            >
+          </p>
+        </div>
+        <div class="flex gap-3">
+          <button
+            onclick="acceptCookies('essential')"
+            class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition-colors"
+          >
+            Essential Only
+          </button>
+          <button
+            onclick="acceptCookies('all')"
+            class="px-4 py-2 bg-pink-500 hover:bg-pink-600 rounded-lg text-sm font-medium transition-colors"
+          >
+            Accept All
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        const consent = localStorage.getItem("cookieConsent");
+        if (!consent) {
+          const banner = document.getElementById("cookieConsent");
+          banner.style.display = "block";
+          setTimeout(() => banner.classList.remove("translate-y-full"), 100);
+        }
+      })();
+      function acceptCookies(type) {
+        localStorage.setItem("cookieConsent", type);
+        const banner = document.getElementById("cookieConsent");
+        banner.classList.add("translate-y-full");
+        setTimeout(() => (banner.style.display = "none"), 300);
+      }
+    </script>
   </body>
 </html>

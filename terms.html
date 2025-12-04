@@ -296,5 +296,57 @@
         <p class="text-gray-400">&copy; 2025 PeelJoy. All rights reserved.</p>
       </div>
     </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div
+      id="cookieConsent"
+      class="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 z-50 transform translate-y-full transition-transform duration-300"
+      style="display: none"
+    >
+      <div
+        class="container mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4"
+      >
+        <div class="flex-1 text-sm">
+          <p>
+            🍪 We use cookies to enhance your experience, analyze site traffic,
+            and serve personalized ads. By clicking "Accept All", you consent to
+            our use of cookies.
+            <a href="/privacy.html" class="text-pink-400 hover:underline"
+              >Learn more</a
+            >
+          </p>
+        </div>
+        <div class="flex gap-3">
+          <button
+            onclick="acceptCookies('essential')"
+            class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition-colors"
+          >
+            Essential Only
+          </button>
+          <button
+            onclick="acceptCookies('all')"
+            class="px-4 py-2 bg-pink-500 hover:bg-pink-600 rounded-lg text-sm font-medium transition-colors"
+          >
+            Accept All
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        const consent = localStorage.getItem("cookieConsent");
+        if (!consent) {
+          const banner = document.getElementById("cookieConsent");
+          banner.style.display = "block";
+          setTimeout(() => banner.classList.remove("translate-y-full"), 100);
+        }
+      })();
+      function acceptCookies(type) {
+        localStorage.setItem("cookieConsent", type);
+        const banner = document.getElementById("cookieConsent");
+        banner.classList.add("translate-y-full");
+        setTimeout(() => (banner.style.display = "none"), 300);
+      }
+    </script>
   </body>
 </html>
