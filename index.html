@@ -647,11 +647,23 @@
           lottie: "/lottie",
         };
 
+        // Use trending search terms when no query is provided
+        const defaultQueries = {
+          icons: "business",
+          "3d-icons": "technology",
+          illustrations: "people",
+          lottie: "animation",
+        };
+
         try {
           const response = await axios.get(
             `${API_BASE_URL}${endpoints[type]}`,
             {
-              params: { q: query || "popular", page, per_page: 20 },
+              params: {
+                q: query || defaultQueries[type] || "design",
+                page,
+                per_page: 20,
+              },
             }
           );
           return response.data;
