@@ -17,6 +17,6 @@ services:
     envs:
       - key: NODE_ENV
         value: production
-      - key: ICONSCOUT_CLIENT_ID
+      - key: FREEPIK_API_KEY
         scope: RUN_TIME
         type: SECRET

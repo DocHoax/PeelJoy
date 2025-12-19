@@ -14,9 +14,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// IconScout API configuration
-const ICONSCOUT_API_BASE = 'https://api.iconscout.com/v3';
-const CLIENT_ID = process.env.ICONSCOUT_CLIENT_ID;
+// Freepik API configuration
+const FREEPIK_API_BASE = 'https://api.freepik.com/v1';
+const FREEPIK_API_KEY = process.env.FREEPIK_API_KEY;
 
 // Download counts storage (in-memory for serverless, use database for production)
 let downloadCounts = {};
@@ -47,36 +47,65 @@ function saveDownloadCounts() {
   }
 }
 
-// Debug: Log the Client ID (first 10 chars only for security)
-console.log('Client ID loaded:', CLIENT_ID ? `${CLIENT_ID.substring(0, 10)}...` : 'NOT FOUND - Check environment variables!');
+// Debug: Log the API Key (first 10 chars only for security)
+console.log('Freepik API Key loaded:', FREEPIK_API_KEY ? `${FREEPIK_API_KEY.substring(0, 10)}...` : 'NOT FOUND - Check environment variables!');
 
-// Helper function to make IconScout API requests
-async function fetchFromIconScout(endpoint, params = {}) {
+// Helper function to make Freepik API requests
+async function fetchFromFreepik(endpoint, params = {}) {
   try {
-    if (!CLIENT_ID) {
-      throw new Error('ICONSCOUT_CLIENT_ID environment variable is not set');
+    if (!FREEPIK_API_KEY) {
+      throw new Error('FREEPIK_API_KEY environment variable is not set');
     }
     
-    console.log(`Fetching: ${ICONSCOUT_API_BASE}${endpoint}`, { params });
+    console.log(`Fetching: ${FREEPIK_API_BASE}${endpoint}`, { params });
     
-    // Try multiple header formats
     const response = await axios({
       method: 'GET',
-      url: `${ICONSCOUT_API_BASE}${endpoint}`,
+      url: `${FREEPIK_API_BASE}${endpoint}`,
       headers: {
-        'Client-ID': CLIENT_ID,
-        'client-id': CLIENT_ID,
-        'Authorization': `Bearer ${CLIENT_ID}`,
-        'X-Client-ID': CLIENT_ID
+        'x-freepik-api-key': FREEPIK_API_KEY,
+        'Accept-Language': 'en-US'
       },
       params: params
     });
     return response.data;
   } catch (error) {
-    console.error('IconScout API error:', error.response?.data || error.message);
+    console.error('Freepik API error:', error.response?.data || error.message);
     console.error('Response headers:', error.response?.headers);
     throw error;
   }
+}
+
+// Transform Freepik icon response to match frontend expected format
+function transformIconResponse(freepikData) {
+  const items = freepikData.data || [];
+  return items.map(item => ({
+    id: item.id,
+    uuid: String(item.id),
+    name: item.description || item.name || 'Untitled Icon',
+    urls: {
+      png_128: item.thumbnails?.find(t => t.size === 128)?.url || item.thumbnails?.[0]?.url,
+      png_64: item.thumbnails?.find(t => t.size === 64)?.url || item.thumbnails?.[0]?.url,
+      thumb: item.thumbnails?.[0]?.url
+    },
+    preview: item.thumbnails?.[0]?.url
+  }));
+}
+
+// Transform Freepik resources response to match frontend expected format
+function transformResourceResponse(freepikData) {
+  const items = freepikData.data || [];
+  return items.map(item => ({
+    id: item.id,
+    uuid: String(item.id),
+    name: item.title || item.filename || 'Untitled',
+    urls: {
+      png_128: item.image?.source?.url || item.thumbnails?.find(t => t.key === 'small')?.url,
+      png_64: item.image?.source?.url || item.thumbnails?.find(t => t.key === 'small')?.url,
+      thumb: item.image?.source?.url || item.thumbnails?.[0]?.url
+    },
+    preview: item.image?.source?.url
+  }));
 }
 
 // Search Icons endpoint
@@ -84,18 +113,18 @@ app.get('/api/icons', async (req, res) => {
   try {
     const { q = 'popular', page = 1, per_page = 20 } = req.query;
     
-    const data = await fetchFromIconScout('/search', {
-      query: q,
-      asset: 'icon',
+    const data = await fetchFromFreepik('/icons', {
+      term: q,
       page: page,
-      per_page: per_page,
-      price: 'free'
+      per_page: Math.min(per_page, 100),
+      order: 'relevance',
+      'filters[license][freemium]': 1
     });
     
     res.json({
       success: true,
-      data: data.response?.items?.data || [],
-      pagination: data.response?.items?.pagination || {}
+      data: transformIconResponse(data),
+      pagination: data.meta || {}
     });
   } catch (error) {
     res.status(error.response?.status || 500).json({
@@ -107,28 +136,30 @@ app.get('/api/icons', async (req, res) => {
   }
 });
 
-// Search 3D Icons endpoint
+// Search 3D Icons endpoint (uses resources with 3d style filter)
 app.get('/api/3d-icons', async (req, res) => {
   try {
     const { q = 'popular', page = 1, per_page = 20 } = req.query;
     
-    const data = await fetchFromIconScout('/search', {
-      query: q,
-      asset: '3d',
+    const data = await fetchFromFreepik('/resources', {
+      term: q + ' 3d',
       page: page,
-      per_page: per_page,
-      price: 'free'
+      limit: Math.min(per_page, 100),
+      order: 'relevance',
+      'filters[content_type][vector]': 1,
+      'filters[vector][style]': '3d',
+      'filters[license][freemium]': 1
     });
     
     res.json({
       success: true,
-      data: data.response?.items?.data || [],
-      pagination: data.response?.items?.pagination || {}
+      data: transformResourceResponse(data),
+      pagination: data.meta || {}
     });
   } catch (error) {
     res.status(error.response?.status || 500).json({
       success: false,
-      error: 'Failed to fetch 3D icons',
+      error: 'Failed to fetch 3D assets',
       message: error.response?.data?.message || error.message,
       data: []
     });
@@ -140,18 +171,19 @@ app.get('/api/illustrations', async (req, res) => {
   try {
     const { q = 'popular', page = 1, per_page = 20 } = req.query;
     
-    const data = await fetchFromIconScout('/search', {
-      query: q,
-      asset: 'illustration',
+    const data = await fetchFromFreepik('/resources', {
+      term: q,
       page: page,
-      per_page: per_page,
-      price: 'free'
+      limit: Math.min(per_page, 100),
+      order: 'relevance',
+      'filters[content_type][vector]': 1,
+      'filters[license][freemium]': 1
     });
     
     res.json({
       success: true,
-      data: data.response?.items?.data || [],
-      pagination: data.response?.items?.pagination || {}
+      data: transformResourceResponse(data),
+      pagination: data.meta || {}
     });
   } catch (error) {
     res.status(error.response?.status || 500).json({
@@ -163,28 +195,31 @@ app.get('/api/illustrations', async (req, res) => {
   }
 });
 
-// Search Lottie Animations endpoint
+// Search Lottie/Animated content endpoint (Note: Freepik doesn't have native Lottie, using animated vectors)
 app.get('/api/lottie', async (req, res) => {
   try {
     const { q = 'popular', page = 1, per_page = 20 } = req.query;
     
-    const data = await fetchFromIconScout('/search', {
-      query: q,
-      asset: 'lottie',
+    // Freepik doesn't have Lottie animations - use animated/motion vectors as alternative
+    const data = await fetchFromFreepik('/resources', {
+      term: q + ' animation motion',
       page: page,
-      per_page: per_page,
-      price: 'free'
+      limit: Math.min(per_page, 100),
+      order: 'relevance',
+      'filters[content_type][vector]': 1,
+      'filters[license][freemium]': 1
     });
     
     res.json({
       success: true,
-      data: data.response?.items?.data || [],
-      pagination: data.response?.items?.pagination || {}
+      data: transformResourceResponse(data),
+      pagination: data.meta || {},
+      note: 'Freepik does not have native Lottie animations. Showing animated/motion vectors instead.'
     });
   } catch (error) {
     res.status(error.response?.status || 500).json({
       success: false,
-      error: 'Failed to fetch Lottie animations',
+      error: 'Failed to fetch animations',
       message: error.response?.data?.message || error.message,
       data: []
     });
@@ -196,18 +231,45 @@ app.get('/api/search', async (req, res) => {
   try {
     const { q = 'popular', page = 1, per_page = 20, asset = 'icon' } = req.query;
     
-    const data = await fetchFromIconScout('/search', {
-      query: q,
-      asset: asset,
-      page: page,
-      per_page: per_page,
-      price: 'free'
-    });
+    let data;
+    let transformedData;
+    
+    if (asset === 'icon') {
+      data = await fetchFromFreepik('/icons', {
+        term: q,
+        page: page,
+        per_page: Math.min(per_page, 100),
+        order: 'relevance',
+        'filters[license][freemium]': 1
+      });
+      transformedData = transformIconResponse(data);
+    } else {
+      // For other asset types, use resources endpoint
+      const filters = {};
+      if (asset === '3d') {
+        filters['filters[content_type][vector]'] = 1;
+        filters['filters[vector][style]'] = '3d';
+      } else if (asset === 'illustration' || asset === 'vector') {
+        filters['filters[content_type][vector]'] = 1;
+      } else if (asset === 'photo') {
+        filters['filters[content_type][photo]'] = 1;
+      }
+      
+      data = await fetchFromFreepik('/resources', {
+        term: q,
+        page: page,
+        limit: Math.min(per_page, 100),
+        order: 'relevance',
+        'filters[license][freemium]': 1,
+        ...filters
+      });
+      transformedData = transformResourceResponse(data);
+    }
     
     res.json({
       success: true,
-      data: data.response?.items?.data || [],
-      pagination: data.response?.items?.pagination || {}
+      data: transformedData,
+      pagination: data.meta || {}
     });
   } catch (error) {
     res.status(error.response?.status || 500).json({
@@ -304,7 +366,7 @@ if (require.main === module) {
 
   const server = app.listen(PORT, () => {
     console.log(`PeelJoy server running on http://localhost:${PORT}`);
-    console.log(`IconScout Client ID configured: ${CLIENT_ID ? 'Yes' : 'No - Check your .env file!'}`);
+    console.log(`Freepik API Key configured: ${FREEPIK_API_KEY ? 'Yes' : 'No - Check your .env file!'}`);
   });
 
   server.on('error', (error) => {

@@ -1,13 +1,13 @@
 # PeelJoy - Design Assets for Developers
 
-Download free icons, 3D icons, illustrations, and Lottie animations for your projects.
+Download free icons, 3D icons, illustrations, and animated graphics for your projects.
 
 ## Features
 
 - **Icons** - Vector icons for UI/UX design
-- **3D Icons** - Modern 3D icons with depth and style
+- **3D Icons** - Modern 3D-style vector graphics with depth
 - **Illustrations** - Beautiful vector illustrations
-- **Lottie Animations** - Lightweight, scalable animations
+- **Animations** - Motion and animated vector graphics
 
 ## Setup
 
@@ -17,10 +17,10 @@ Download free icons, 3D icons, illustrations, and Lottie animations for your pro
 npm install
 ```
 
-2. Add your IconScout API key to `.env`:
+2. Add your Freepik API key to `.env`:
 
 ```
-ICONSCOUT_CLIENT_ID=your_api_key_here
+FREEPIK_API_KEY=your_api_key_here
 ```
 
 3. Start the server:
@@ -33,12 +33,12 @@ node server.js
 
 ## API Endpoints
 
-The server proxies requests to IconScout API:
+The server proxies requests to Freepik API:
 
 - `GET /api/icons` - Search icons
-- `GET /api/3d-icons` - Search 3D icons
+- `GET /api/3d-icons` - Search 3D-style vectors
 - `GET /api/illustrations` - Search illustrations
-- `GET /api/lottie` - Search Lottie animations
+- `GET /api/lottie` - Search animated/motion vectors
 
 Query parameters:
 
@@ -50,9 +50,8 @@ Query parameters:
 
 - Frontend: HTML, TailwindCSS, Vanilla JavaScript
 - Backend: Node.js, Express
-- API: IconScout REST API
-- Animations: Lottie Player
+- API: Freepik REST API
 
 ## License
 
-Powered by IconScout API. Assets are subject to IconScout's licensing terms.
+Powered by Freepik API. Assets are subject to Freepik's licensing terms.
